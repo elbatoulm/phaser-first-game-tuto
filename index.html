@@ -30,6 +30,8 @@
           },
         },
       };
+      var score = 0;
+      var scoreText;
 
       var game = new Phaser.Game(config);
 
@@ -88,20 +90,23 @@
             child.setBounce(Phaser.Math.FloatBetween(0.4, 0.8));
           });
 
+        scoreText = this.add.text(16, 16, "score: 0", {
+          fontSize: "32px",
+          fill: "#000",
+        });
+        cursors = this.input.keyboard.createCursorKeys();
         this.physics.add.collider(stars, platforms);
-        this.physics.add.overlap(
-          player,
-          stars,
-          function (player, star) {
-            star.disableBody(true, true);
-          },
-          null,
-          this
-        );
+        this.physics.add.overlap(player, stars, collectStar, null, this);
+      }
+
+      function collectStar(player, star) {
+        star.disableBody(true, true);
+
+        score += 10;
+        scoreText.setText("Score: " + score);
       }
 
       function update() {
-        cursors = this.input.keyboard.createCursorKeys();
         if (cursors.left.isDown) {
           player.setVelocityX(-160);
 
