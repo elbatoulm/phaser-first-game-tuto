@@ -13,3 +13,8 @@ The tutorial consists of : \
 4- Adding collisions and overlaps between different game objects
 
 5- Adding a score
+
+Install dependencies [Phaser] 
+
+	npm install phaser@3.23.0
+
